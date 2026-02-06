@@ -13,9 +13,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+
+        /* Fallback for noscript: show revealed elements by default */
+        noscript .reveal {
+            opacity: 1 !important;
+            transform: none !important;
         }
     </style>
 </head>
@@ -480,7 +489,7 @@
     </a>
 
     <!-- Custom Script -->
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
     <script>
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');

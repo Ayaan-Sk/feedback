@@ -1,19 +1,18 @@
 // Firebase Configuration (Provided by user)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// Using Compat SDK for local file compatibility (works better with file:// protocol)
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3ziCKSIX5hceHP6BLC_p3gTUFG0ATNlk",
-  authDomain: "airsight-fn1yq.firebaseapp.com",
-  projectId: "airsight-fn1yq",
-  storageBucket: "airsight-fn1yq.firebasestorage.app",
-  messagingSenderId: "82987058042",
-  appId: "1:82987058042:web:07652f9678a46dedee4cc3"
+    apiKey: "AIzaSyC3ziCKSIX5hceHP6BLC_p3gTUFG0ATNlk",
+    authDomain: "airsight-fn1yq.firebaseapp.com",
+    projectId: "airsight-fn1yq",
+    storageBucket: "airsight-fn1yq.firebasestorage.app",
+    messagingSenderId: "82987058042",
+    appId: "1:82987058042:web:07652f9678a46dedee4cc3"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // Reveal on Scroll Logic
 const reveal = () => {
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const submitBtn = feedbackForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = 'Sending...';
@@ -48,11 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 email: document.getElementById('email').value,
                 contact: document.getElementById('contact').value,
                 feedback: document.getElementById('message').value,
-                timestamp: serverTimestamp()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             };
 
             try {
-                await addDoc(collection(db, "advantage_vidarbha_feedback"), formData);
+                await db.collection("advantage_vidarbha_feedback").add(formData);
                 alert('Thank you for your feedback!');
                 feedbackForm.reset();
             } catch (error) {
@@ -65,3 +64,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
